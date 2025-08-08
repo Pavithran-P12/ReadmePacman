@@ -1,4 +1,4 @@
-name: Generate Pac-Man Contribution Graph
+name: Generate Pac‑Man Contribution Graph
 
 on:
   schedule:
@@ -8,21 +8,22 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  generate:
     permissions:
       contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
-      - name: Generate Pac-Man graph
+      - name: Generate Pac‑Man graph
         uses: abozanona/pacman-contribution-graph@main
         with:
-          platform: github
-          gameTheme: pacman
-          username: Pavithran-P12
+          github_user_name: ${{ github.repository_owner }}
 
-      - name: Check output files
-        run: ls -R
+      - name: Debug generated files
+        run: |
+          echo "Files in working directory:"
+          ls -R
 
       - name: Deploy to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
